@@ -1,0 +1,16 @@
+{
+    "api_server": {
+        "host": "",
+        "port": 0
+    },
+    "bot": {
+        "token": ""
+    },
+    "db": {
+        "host": "",
+        "port": 0,
+        "username": "",
+        "password": "",
+        "dbname": ""
+    }
+}
