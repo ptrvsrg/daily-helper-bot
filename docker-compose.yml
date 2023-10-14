@@ -1,0 +1,44 @@
+version: "3"
+services:
+  api-db:
+    image: "mariadb:latest"
+    container_name: daily-helper-api-db
+    env_file: .env
+    restart: unless-stopped
+    ports:
+        - "3306:3006"
+    volumes:
+      - "daily-helper-api-db-data:/var/lib/mysql"
+
+  api-app:
+    image: "ptrvsrg/daily-helper-api:1.0.0"
+    container_name: daily-helper-api-app
+    env_file: .env
+    ports:
+      - "8080:8080"
+      - "465:465"
+    depends_on:
+      - api-db
+
+  bot-db:
+    image: "postgres:latest"
+    container_name: daily-helper-bot-db
+    env_file: .env
+    restart: unless-stopped
+    ports:
+        - "5432:5432"
+    volumes:
+      - "daily-helper-bot-db-data:/var/lib/postgresql/data"
+      - "./db/changelog:/docker-entrypoint-initdb.d"
+
+  bot-app:
+    build: ./
+    container_name: daily-helper-bot-app
+    env_file: .env
+    depends_on:
+      - bot-db
+      - api-app
+
+volumes:
+  daily-helper-api-db-data:
+  daily-helper-bot-db-data:
