@@ -3,6 +3,7 @@ module daily-helper-bot
 go 1.18
 
 require (
+	github.com/lib/pq v1.10.9
 	github.com/sirupsen/logrus v1.9.3
 	github.com/spf13/pflag v1.0.5
 	github.com/spf13/viper v1.17.0
